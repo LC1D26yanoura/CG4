@@ -5,7 +5,7 @@ using namespace KamataEngine;
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	//エンジンの初期化
-	KamataEngine::Initialize(L"LE2D_16_ヤノウラ_ハルト_CG4");
+	KamataEngine::Initialize(L"LE2D_16_ヤノウラ_ハルト_CG5");
 	
 	//メインループ
 	while (true) {
