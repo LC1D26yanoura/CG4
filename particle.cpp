@@ -1,6 +1,6 @@
 #include "particle.h"
 using namespace MathUtility;
-void particle::Initialize(Model*model) {
+void Particle::Initialize(Model*model,Vector3 position,Vector3 velocity) {
 	//nullポインタチェック
 	assert(model);
 
@@ -8,12 +8,15 @@ void particle::Initialize(Model*model) {
 
 	worldTransform_.Initialize();
 
+	worldTransform_.translation_ = position;
+
+	
 	//色の設定
 	objectColor_.Initialize();
 	color_ = {1, 1, 0, 1};
 }
 
-void particle::Update() {
+void Particle::Update() {
 
 	//移動
 	worldTransform_.translation_ += {0.0f, 0.1f, 0.0f};
@@ -25,7 +28,7 @@ void particle::Update() {
 	objectColor_.SetColor(color_);
 }
 
-void particle::Draw(Camera& camera) {
+void Particle::Draw(Camera& camera) {
 
 	//3Dモデルを描画
 	model_->Draw(worldTransform_, camera, &objectColor_);

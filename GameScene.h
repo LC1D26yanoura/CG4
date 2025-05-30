@@ -20,8 +20,8 @@ public:
 	Camera camera_;
 
 	//パーティクル
-	particle* particle_ = nullptr;
-
+	//particle* particle_ = nullptr;
+	std::list<Particle*> particles_;
 	//デストラクタ
 	~GameScene();
 };
