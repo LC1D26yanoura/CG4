@@ -30,10 +30,10 @@ public:
 	void particleBorn(KamataEngine::Vector3 position);
 
 	// エフェクト
-	 Effect* effect_ = nullptr;
-	//std::list<Effect*> effects_;
+	 //Effect* effect_ = nullptr;
+	std::list<Effect*> effects_;
 
-	//void effectBorn(KamataEngine::Vector3 position);
+	void effectBorn(KamataEngine::Vector3 position);
 
 	//デストラクタ
 	~GameScene();

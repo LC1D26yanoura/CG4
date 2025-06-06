@@ -12,18 +12,13 @@ void GameScene::Initialize() {
 
 	modelEffect_ = Model::CreateSphere(2, 2);
 
-	effect_ = new Effect; 
-
-	effect_->Initialize(modelEffect_, {0, 0});
-
 	//カメラの生成
 	camera_.Initialize();
 
+	
+
 	//乱数の初期化
 	srand((unsigned)time(NULL));
-
-
-
 }
 
 void GameScene::Update() {
@@ -49,25 +44,25 @@ void GameScene::Update() {
 	
 	}
 
+
+	effects_.remove_if([](Effect* effect) {
+		if (effect->isFinished() == true) {
+			delete effect;
+			return true;
+		}
+		return false;
+	});
+
+	// 確率で発生
+	if (rand() % 20 == 0) {
+
+		Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
+		effectBorn(position);
+	}
 	// エフェクトの更新
-		effect_->Update();
-	//for (Effect* effect : effects_) {
-	//};
-
-	//particles_.remove_if([](Effect* effect) {
-	//	if (effect->isFinished() == true) {
-	//		delete effect;
-	//		return true;
-	//	}
-	//	return false;
-	//});
-
-	//// 確率で発生
-	//if (rand() % 20 == 0) {
-
-	//	Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
-	//	effectBorn(position);
-	//}
+	for (Effect* effect : effects_) {
+		effect->Update();
+	};
 }
 
 void GameScene::Draw() {
@@ -85,8 +80,9 @@ void GameScene::Draw() {
 	}*/
 
 	//エフェクトの描画
-	effect_->Draw(camera_);
-
+	for (Effect* effect : effects_) {
+		effect->Draw(camera_);
+	}
 	// 3Dモデル描画後処理
 	Model::PostDraw();
 }
@@ -109,12 +105,36 @@ void GameScene::particleBorn(Vector3 position) {
 	}
 	}
 
-// void GameScene::effectBorn(KamataEngine::Vector3 position) {}
+void GameScene::effectBorn(KamataEngine::Vector3 position) {
 
-    GameScene::~GameScene() {
+	    for (int i = 0; i < 10; i++) {
+		    // 生成
+		    Effect* effect = new Effect();
+		    // 位置
+		    // Vector3 position = {0.0f, 0.0f, 0.0f};
+		    // 移動量
+		    //Vector3 velocity = {distribution(randomEngine), distribution(randomEngine), 0};
+			
+			Vector3 scale = {1.0f, distribution(randomEngine) * 10, 1.0f};
 
-	delete modelParticle_;
-	for (Particle* particle : particles_) {
-		delete particle;
-	}
-}
+			Vector3 rotate = {1.0f, distribution(randomEngine) * 10, 1.0f};
+
+		    // 初期化
+		    effect->Initialize(modelEffect_, position, scale, rotate);
+		    // リストに追加
+		    effects_.push_back(effect);
+	    }
+    }
+
+	    GameScene::~GameScene() {
+
+		    delete modelParticle_;
+		    delete modelEffect_;
+		    for (Particle* particle : particles_) {
+			    delete particle;
+		    }
+		    for (Effect* effect : effects_) {
+			    delete effect;
+		    }
+	    }
+   
