@@ -53,5 +53,5 @@ void Effect::Update() {
 void Effect::Draw(Camera& camera) {
 
 	// 3Dモデルを描画
-	model_->Draw(worldTransform_, camera, &objectColor_);
+	model_->Draw(worldTransform_, camera,&objectColor_);
 }
