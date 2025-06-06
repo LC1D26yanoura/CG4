@@ -10,11 +10,19 @@ void GameScene::Initialize() {
     //3Dモデルデータの生成
 	modelParticle_ = Model::CreateSphere(4, 4);
 
+	modelEffect_ = Model::CreateSphere(2, 2);
+
+	effect_ = new Effect; 
+
+	effect_->Initialize(modelEffect_, {0, 0});
+
 	//カメラの生成
 	camera_.Initialize();
 
 	//乱数の初期化
 	srand((unsigned)time(NULL));
+
+
 
 }
 
@@ -41,6 +49,25 @@ void GameScene::Update() {
 	
 	}
 
+	// エフェクトの更新
+		effect_->Update();
+	//for (Effect* effect : effects_) {
+	//};
+
+	//particles_.remove_if([](Effect* effect) {
+	//	if (effect->isFinished() == true) {
+	//		delete effect;
+	//		return true;
+	//	}
+	//	return false;
+	//});
+
+	//// 確率で発生
+	//if (rand() % 20 == 0) {
+
+	//	Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
+	//	effectBorn(position);
+	//}
 }
 
 void GameScene::Draw() {
@@ -53,9 +80,13 @@ void GameScene::Draw() {
 
 
     //パーティクルの描画
-	for (Particle* particle : particles_) {
+	/*for (Particle* particle : particles_) {
 		particle->Draw(camera_);
-	}
+	}*/
+
+	//エフェクトの描画
+	effect_->Draw(camera_);
+
 	// 3Dモデル描画後処理
 	Model::PostDraw();
 }
@@ -78,7 +109,9 @@ void GameScene::particleBorn(Vector3 position) {
 	}
 	}
 
-GameScene::~GameScene() {
+// void GameScene::effectBorn(KamataEngine::Vector3 position) {}
+
+    GameScene::~GameScene() {
 
 	delete modelParticle_;
 	for (Particle* particle : particles_) {
