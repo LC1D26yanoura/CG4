@@ -1,10 +1,12 @@
 #pragma once
 #include<KamataEngine.h>
+#include <cassert>
+#include"Model2.h"
 using namespace KamataEngine;
 class particle {
 public:
 	// 初期化
-	void Initialize(Model*model);
+	void Initialize(Model2*model);
 
 	// 更新
 	void Update();
@@ -17,6 +19,6 @@ private:
 	WorldTransform worldTransform_;
 
 	//モデル
-	Model* model_ = nullptr;
+	Model2* model_ = nullptr;
 
 };

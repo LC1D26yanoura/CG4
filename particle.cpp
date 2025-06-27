@@ -1,9 +1,9 @@
 #include "particle.h"
 
-void particle::Initialize(Model*model) {
+void particle::Initialize(Model2*model) {
 	//nullポインタチェック
 	assert(model);
-
+	
 	model_ = model;
 
 	worldTransform_.Initialize();

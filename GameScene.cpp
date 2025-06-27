@@ -2,9 +2,10 @@
 using namespace KamataEngine;
 
 void GameScene::Initialize() {
+	Model2::StaticInitialize();
 
     //3Dモデルデータの生成
-	modelParticle_ = Model::CreateSphere(4, 4);
+	modelParticle_ = Model2::CreateSphere(4, 4);
 
 	//カメラの生成
 	camera_.Initialize();
@@ -13,6 +14,7 @@ void GameScene::Initialize() {
 	particle_ = new particle();
 	//パーティクルの初期化
 	particle_->Initialize(modelParticle_);
+
 }
 
 void GameScene::Update() {
@@ -28,19 +30,20 @@ void GameScene::Draw() {
 	DirectXCommon* dxcommon = DirectXCommon::GetInstance();
 
 	// 3Dモデル描画前処理
-	Model::PreDraw(dxcommon->GetCommandList());
+	Model2::PreDraw(dxcommon->GetCommandList());
 
 
     //パーティクルの描画
 	particle_->Draw(camera_);
 
 	// 3Dモデル描画後処理
-	Model::PostDraw();
+	Model2::PostDraw();
 }
 
 GameScene::~GameScene() {
 
 	delete modelParticle_;
 	delete particle_;
+	Model2::StaticFinalize();
 
 }
