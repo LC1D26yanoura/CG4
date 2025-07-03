@@ -5,7 +5,7 @@ void GameScene::Initialize() {
 	Model2::StaticInitialize();
 
     //3Dモデルデータの生成
-	modelParticle_ = Model2::CreateSphere(4, 4);
+	modelParticle_ = Model2::CreateSquare();
 
 	//カメラの生成
 	camera_.Initialize();
